@@ -76,7 +76,7 @@ class ListaContatoState extends State<ListaContato> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget> [
                 GestureDetector(
-                  onTap: (){ _excluir(context, _contato.id);},
+                  onTap: (){confirmar(context, _contato.id);},
                   child: Padding(
                       padding: EdgeInsets.all(8),
                       child: Icon(Icons.remove_circle,
@@ -87,6 +87,34 @@ class ListaContatoState extends State<ListaContato> {
             ),
           ),
         )
+    );
+  }
+
+  void confirmar(BuildContext context, int id) {
+    AlertDialog alert = AlertDialog(
+      title: Text("Confirmação"),
+      content: Text("Deseja excluir o contato?"),
+      actions: [
+        TextButton(
+          child: Text("Sim"),
+          onPressed: () {
+            _excluir(context, id);
+          },
+        ),
+        TextButton(
+          child: Text("Não"),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 

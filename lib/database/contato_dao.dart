@@ -11,7 +11,7 @@ class ContatoDao {
   static const String _fone = "fone";
   static const String _email = "email";
 
-  static const String tableSql = 'CREATE TABLE tarefas ( '
+  static const String tableSql = 'CREATE TABLE contatos ( '
       ' id INTEGER PRIMARY KEY, '
       ' nome TEXT, '
       ' endereco TEXT, '
