@@ -31,14 +31,26 @@ class FormContatoState extends State<FormContato> {
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 children: <Widget>[
-                  Editor(_controladorNome, "Contato", "Informe o nome",
-                      Icons.person),
-                  Editor(_controladorEndereco, "Endereço", "Informe o endereço",
-                      Icons.place),
-                  Editor(_controladorEmail, "Email", "Informe o email",
-                      Icons.email),
-                  Editor(_controladorFone, "Telefone", "Informe o telefone",
-                      Icons.phone),
+                  Editor(
+                    _controladorNome, 
+                    "Contato", 
+                    "Informe o nome",
+                    Icons.person),
+                  Editor(
+                    _controladorEndereco, 
+                    "Endereço", 
+                    "Informe o endereço",
+                    Icons.place),
+                  Editor(
+                    _controladorEmail, 
+                    "Email", 
+                    "Informe o email",
+                    Icons.email),
+                  Editor(
+                    _controladorFone, 
+                    "Telefone", 
+                    "Informe o telefone",
+                    Icons.phone,),
                   ElevatedButton(
                       onPressed: () {
                         criarContato(context);
@@ -51,11 +63,30 @@ class FormContatoState extends State<FormContato> {
 
   void criarContato(BuildContext context) {
     ContatoDao dao = ContatoDao();
+    if(_controladorNome.text == ''){
+      SnackBar snackBar = SnackBar(content: Text("Informe o Nome!"));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      return;
+    } else if(_controladorEndereco.text == ''){
+      SnackBar snackBar = SnackBar(content: Text("Informe o Endereço!"));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      return;
+    }if(_controladorEmail.text == ''){
+      SnackBar snackBar = SnackBar(content: Text("Informe o Email!"));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      return;
+    } if(_controladorFone.text == ''){
+      SnackBar snackBar = SnackBar(content: Text("Informe o Telefone!"));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      return;
+    } 
     if (_id != null){ // alteração
       final contato = Contato(_id!,
           _controladorNome.text, _controladorEndereco.text,
           _controladorFone.text, _controladorEmail.text);
       dao.update(contato).then((id) => Navigator.pop(context));
+      SnackBar snackBar = SnackBar(content: Text("Contato atualizado!"));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     } else {
       final contato = Contato(_id!,
           _controladorNome.text, _controladorEndereco.text,
@@ -64,9 +95,9 @@ class FormContatoState extends State<FormContato> {
         print("contato incluído: " + id.toString());
         Navigator.pop(context);
       });
+      SnackBar snackBar = SnackBar(content: Text("Contato salvo!"));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
-    SnackBar snackBar = SnackBar(content: Text("Contato atualizado!"));
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   @override
