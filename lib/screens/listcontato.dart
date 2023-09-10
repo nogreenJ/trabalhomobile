@@ -25,7 +25,7 @@ class ListaContatoState extends State<ListaContato> {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             final Future future =
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
               return FormContato();
             }));
             future.then((contato) {
@@ -54,40 +54,39 @@ class ListaContatoState extends State<ListaContato> {
                     child: Text("Carregando"),
                   );
               }
-              return Center(child: Text("Nenhuma Contato"));
+              return Center(child: Text("Nenhum Contato"));
             }));
   }
 
   Widget ItemContato(BuildContext context, Contato _contato) {
     return GestureDetector(
-        onTap: (){
-          final Future future = Navigator.push(context,
-              MaterialPageRoute(builder: (context){
-                return FormContato(contato: _contato);
-              }));
-          future.then((value) => setState((){}));
+        onTap: () {
+          final Future future =
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return FormContato(contato: _contato);
+          }));
+          future.then((value) => setState(() {}));
         },
-        child:    Card(
+        child: Card(
           child: ListTile(
             title: Text(_contato.nome),
             subtitle: Text(_contato.info()),
             leading: Icon(Icons.add_alert),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
-              children: <Widget> [
+              children: <Widget>[
                 GestureDetector(
-                  onTap: (){confirmar(context, _contato.id);},
+                  onTap: () {
+                    confirmar(context, _contato.id);
+                  },
                   child: Padding(
                       padding: EdgeInsets.all(8),
-                      child: Icon(Icons.remove_circle,
-                          color : Colors.red)
-                  ),
+                      child: Icon(Icons.remove_circle, color: Colors.red)),
                 ),
               ],
             ),
           ),
-        )
-    );
+        ));
   }
 
   void confirmar(BuildContext context, int id) {
@@ -118,7 +117,7 @@ class ListaContatoState extends State<ListaContato> {
     );
   }
 
-  void _excluir(BuildContext context, int id){
-    dao.delete(id).then((value) => setState((){}));
+  void _excluir(BuildContext context, int id) {
+    dao.delete(id).then((value) => setState(() {}));
   }
 }
